@@ -1,0 +1,9 @@
+server:
+  port: 9003
+
+spring:
+  data:
+    mongodb:
+      database: planet
+      port: '27017'
+      host: localhost
