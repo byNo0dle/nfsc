@@ -4,13 +4,15 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigInteger;
+
 @Data
 @Document(collection = "orders")
 public class Order {
 
     @Id
-    private Long nroOrder;
-    private Long codeProduct;
+    private BigInteger id;
+    private Product codeProduct;
     private Integer amount;
     private Customer customer;
 }
