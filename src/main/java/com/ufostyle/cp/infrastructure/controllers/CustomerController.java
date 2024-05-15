@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer createUser(@RequestBody Customer customer) {
+    public Customer createCustomer(@RequestBody Customer customer) {
         return customerService.saveCustomer(customer);
     }
 }
