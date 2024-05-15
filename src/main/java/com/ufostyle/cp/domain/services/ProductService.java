@@ -2,6 +2,7 @@ package com.ufostyle.cp.domain.services;
 
 import com.ufostyle.cp.domain.entities.Product;
 import com.ufostyle.cp.domain.repositories.ProductRepository;
+import com.ufostyle.cp.infrastructure.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,12 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
-    public Optional<Product> findById(String idProduct) {
-        return productRepository.findById(idProduct);
+    public Product findById(String idProduct) throws NotFoundException {
+        Optional<Product> product = productRepository.findById(idProduct);
+        if (!product.isPresent()) {
+            throw new NotFoundException("ProductId is not available");
+        }
+        return product.get();
     }
 
     public Product saveProduct(Product product) {
