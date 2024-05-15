@@ -21,4 +21,8 @@ public class OrderService {
     public Optional<Order> findById(String idOrder) {
         return orderRepository.findById(idOrder);
     }
+
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
+    }
 }
