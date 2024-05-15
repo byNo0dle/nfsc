@@ -2,6 +2,8 @@ package com.ufostyle.cp.infrastructure.controllers;
 
 import com.ufostyle.cp.domain.entities.Customer;
 import com.ufostyle.cp.domain.services.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +18,14 @@ import java.util.Optional;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     @Autowired
     CustomerService customerService;
 
     @GetMapping
     public Page<Customer> getAllCustomer(Pageable pageable) {
+        logger.debug("Obteniendo todos los customers");
         return customerService.findAll(pageable);
     }
 

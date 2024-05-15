@@ -7,3 +7,5 @@ spring:
       database: planet
       port: '27017'
       host: localhost
+
+logging.level.com.ufostyle.cp: DEBUG
