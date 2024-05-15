@@ -2,6 +2,7 @@ package com.ufostyle.cp.infrastructure.controllers;
 
 import com.ufostyle.cp.domain.entities.Customer;
 import com.ufostyle.cp.domain.services.CustomerService;
+import com.ufostyle.cp.infrastructure.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -27,12 +28,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{idCustomer}")
-    public Optional<Customer> getCustomerById(@PathVariable("idCustomer") String idCustomer) {
+    public Customer getCustomerById(
+            @PathVariable("idCustomer") String idCustomer) throws NotFoundException {
         return customerService.findById(idCustomer);
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
+    public Customer createCustomer(@Valid @RequestBody Customer customer) {
         return customerService.saveCustomer(customer);
     }
 }

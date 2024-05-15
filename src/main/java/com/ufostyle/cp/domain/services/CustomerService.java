@@ -2,6 +2,7 @@ package com.ufostyle.cp.domain.services;
 
 import com.ufostyle.cp.domain.entities.Customer;
 import com.ufostyle.cp.domain.repositories.CustomerRepository;
+import com.ufostyle.cp.infrastructure.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,12 @@ public class CustomerService {
         return customerRepository.findAll(pageable);
     }
 
-    public Optional<Customer> findById(String idCustomer) {
-        return customerRepository.findById(idCustomer);
+    public Customer findById(String idCustomer) throws NotFoundException {
+        Optional<Customer> customer = customerRepository.findById(idCustomer);
+        if (!customer.isPresent()) {
+            throw new NotFoundException("CustomerId is not available");
+        }
+        return customer.get();
     }
 
     public Customer saveCustomer(Customer customer) {
