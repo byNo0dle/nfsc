@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+  description: API for managing products. Reto Backend CP.
+  contact:
+    name: No0dl3 Support
+    url: https://github.com/byNo0dle
+servers:
+  - url: http://localhost:9003/api/products
+    description: Product Api
+paths:
+  get:
+    tags:
+      - Product
+    summary: Find all Products
+    operationId: findAllProduct
+    responses:
+      '200':
+        description: List of Products retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+      '400':
+        description: Bad Request invalid syntax
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductError'
+      '404':
+        description: Not Found Product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductError'
+  post:
+    tags:
+      - Product
+    summary: Add a new Product
+    description: Add a new Product
+    operationId: saveProduct
+    requestBody:
+      description: Create a new Product
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+      required: true
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      '400':
+        description: Bad Request invalid syntax
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductError'
+      '404':
+        description: Not Found Product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductError'
+              
+  /{idProduct}:
+    get:
+      tags:
+        - Product
+      summary: Find Product by ID
+      description: Returns a single Product
+      operationId: findByIdProduct
+      parameters:
+        - name: id
+          in: path
+          description: ID of Product to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request invalid syntax
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductError'
+        '404':
+          description: Not Found Product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductError'
+                
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 65xd2dx0x7d11d2x20827638
+        name:
+          type: string
+          minLength: 10
+          maxLength: 20
+          example: Manolito Manuel
+        price:
+          type: number
+          example: 40.50
+    ProductError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message

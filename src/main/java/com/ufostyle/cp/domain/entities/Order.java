@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -14,7 +13,7 @@ public class Order {
 
     @Id
     private String id;
-    @Length(min = 10, max = 40)
+    @Length(min = 30, max = 40)
     private String codeProduct;
     @NotNull
     private Integer amount;

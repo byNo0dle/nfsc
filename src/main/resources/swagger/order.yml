@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Order API
+  version: 1.0.0
+  description: API for managing orders. Reto Backend CP.
+  contact:
+    name: No0dl3 Support
+    url: https://github.com/byNo0dle
+servers:
+  - url: http://localhost:9003/api/orders
+    description: Order Api
+paths:
+  get:
+    tags:
+      - Order
+    summary: Find all Orders
+    operationId: findAllOrder
+    responses:
+      '200':
+        description: List of Orders retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Order'
+      '400':
+        description: Bad Request invalid syntax
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderError'
+      '404':
+        description: Not Found Order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderError'
+  post:
+    tags:
+      - Order
+    summary: Add a new Order
+    description: Add a new Order
+    operationId: saveOrder
+    requestBody:
+      description: Create a new Order
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Order'
+      required: true
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      '400':
+        description: Bad Request invalid syntax
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderError'
+      '404':
+        description: Not Found Order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderError'
+  
+  /{idOrder}:
+    get:
+      tags:
+        - Order
+      summary: Find Order by ID
+      description: Returns a single Order
+      operationId: findByIdOrder
+      parameters:
+        - name: id
+          in: path
+          description: ID of Order to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad Request invalid syntax
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        '404':
+          description: Not Found Order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderError'
+                
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 65xd2dx0x7d11d2x20827638
+        codeProduct:
+          type: string
+          minLength: 30
+          maxLength: 40
+          example: 65xd2dx0x7d11d2x20827638
+        amount:
+          type: number
+          example: 3
+        customer:
+          $ref: '#/components/schemas/Customer'
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 65xd2dx0x7d11d2x20827638
+        nameCustomer:
+          type: string
+          example: Piero Rogelio
+        surnames:
+          type: string
+          example: Ahuanari Sangama
+        address:
+          type: string
+          example: Jr. Puerto Maldonado 130
+    OrderError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
