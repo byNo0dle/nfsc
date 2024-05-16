@@ -12,7 +12,7 @@ public class Order {
 
     @Id
     private BigInteger id;
-    private Product codeProduct;
+    private String codeProduct;
     private Integer amount;
     private Customer customer;
 }
