@@ -6,10 +6,12 @@ import com.ufostyle.cp.domain.entities.Product;
 import com.ufostyle.cp.domain.repositories.CustomerRepository;
 import com.ufostyle.cp.domain.repositories.OrderRepository;
 import com.ufostyle.cp.domain.repositories.ProductRepository;
+import com.ufostyle.cp.infrastructure.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +26,16 @@ public class OrderService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public Page<Order> findAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
-    public Optional<Order> findById(String idOrder) {
-        return orderRepository.findById(idOrder);
+    public Order findById(String idOrder) throws NotFoundException {
+        Optional<Order> order = orderRepository.findById(idOrder);
+        if (!order.isPresent()) {
+            throw new NotFoundException("OrderId is not available");
+        }
+        return order.get();
     }
 
     public Order saveOrder(Order order) {
@@ -38,7 +44,7 @@ public class OrderService {
         Customer customer = customerRepository.findById(order.getCustomer().getId().toString()).get();
         customer.setNameCustomer(order.getCustomer().getNameCustomer());
         customer.setSurnames(order.getCustomer().getSurnames());
-        customer.setAddress(order.getCustomer().getSurnames());
+        customer.setAddress(order.getCustomer().getAddress());
         order.setCustomer(customer);
         return orderRepository.save(order);
     }
