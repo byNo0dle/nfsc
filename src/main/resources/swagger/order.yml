@@ -113,7 +113,7 @@ components:
           example: 65xd2dx0x7d11d2x20827638
         codeProduct:
           type: string
-          minLength: 30
+          minLength: 20
           maxLength: 40
           example: 65xd2dx0x7d11d2x20827638
         amount:

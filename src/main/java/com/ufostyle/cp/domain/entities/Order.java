@@ -13,7 +13,7 @@ public class Order {
 
     @Id
     private String id;
-    @Length(min = 30, max = 40)
+    @Length(min = 20, max = 40)
     private String codeProduct;
     @NotNull
     private Integer amount;
