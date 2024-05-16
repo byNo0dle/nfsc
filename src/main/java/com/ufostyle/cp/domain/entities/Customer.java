@@ -6,14 +6,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
-import java.math.BigInteger;
 
 @Data
 @Document(collection = "customers")
 public class Customer {
 
     @Id
-    private BigInteger id;
+    private String id;
     @NotBlank(message = "Please add the nameCustomer")
     private String nameCustomer;
     @Length(min = 10, max = 20)
