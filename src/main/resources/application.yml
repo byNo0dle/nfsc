@@ -4,8 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      database: planet
-      port: '27017'
-      host: localhost
+      database: RetoBackend
+      uri: 'mongodb+srv://${BD_USER}:${BD_PASSWORD}@cluster0.m5vgmwl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 logging.level.com.ufostyle.cp: DEBUG
