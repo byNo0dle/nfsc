@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,5 +37,10 @@ public class CustomerController {
     @PostMapping
     public Customer createCustomer(@Valid @RequestBody Customer customer) {
         return customerService.saveCustomer(customer);
+    }
+
+    @PutMapping
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        return customerService.updateCustomer(customer);
     }
 }

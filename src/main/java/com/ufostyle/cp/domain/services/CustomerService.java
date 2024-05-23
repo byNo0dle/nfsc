@@ -31,4 +31,8 @@ public class CustomerService {
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    public Customer updateCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
 }
