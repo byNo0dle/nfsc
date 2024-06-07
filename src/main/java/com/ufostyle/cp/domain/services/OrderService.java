@@ -48,4 +48,8 @@ public class OrderService {
         order.setCustomer(customer);
         return orderRepository.save(order);
     }
+
+    public void deleteOrder(String idOrder) {
+        orderRepository.deleteById(idOrder);
+    }
 }

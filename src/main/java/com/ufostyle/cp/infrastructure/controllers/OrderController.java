@@ -1,6 +1,7 @@
 package com.ufostyle.cp.infrastructure.controllers;
 
 import com.ufostyle.cp.domain.entities.Order;
+import com.ufostyle.cp.domain.services.CustomerService;
 import com.ufostyle.cp.domain.services.OrderService;
 import com.ufostyle.cp.infrastructure.exceptions.NotFoundException;
 import org.slf4j.Logger;
@@ -23,6 +24,9 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @GetMapping
     public Page<Order> getAllOrders(Pageable pageable) {
         logger.debug("Obteniendo todos los orders");
@@ -38,5 +42,10 @@ public class OrderController {
     @PostMapping
     public Order createOrder(@Valid @RequestBody Order order) {
         return orderService.saveOrder(order);
+    }
+
+    @DeleteMapping("/{idOrder}")
+    public void deleteOrder(@PathVariable("idOrder") String idOrder) {
+        orderService.deleteOrder(idOrder);
     }
 }
